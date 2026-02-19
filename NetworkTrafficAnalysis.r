@@ -7,19 +7,19 @@ options(repos = c(CRAN = "https://cloud.r-project.org"))
 set.seed(123) #dk what this means
 num_records <- 1000
 
-timestamps <- seq.POSIXt(from = as.POSIXct("2024-06-03 00:00:00"),
-                        by = "hour",
+timestamps <- seq.POSIXt(from = as.POSIXct("2024-06-03 00:00:00"), #seq.POSIXt is a specialized funcn for date time objects, cause their calculations are diff from normal time, it is a version of seq
+                        by = "hour", # by hour because this incriments over an hour
                         length.out = num_records) #as far as i have understood this is like generating random time stamps from this point onwards
 
 generate_ipv4 <- function(n) {
-    paste(sample(0:255, n, replace = TRUE), sample(0:255, n, replace = TRUE),
+    paste(sample(0:255, n, replace = TRUE), sample(0:255, n, replace = TRUE), #0:255, generates betn 0-255, n is the  number of times, 1k,  replace=TRUE this is used for like, same number can be generate, paste is a function that joins multiple thing in a single string
     sample(0:255, n, replace = TRUE), sample(0:255, n, replace=TRUE), sep=".") # as far as i understood this, we are making a sample and the seperator is ".", so its like generating 4 random nums from 0-255(including 0 and 255), and these 4 are seperated by dots
 }
 # a new way to make function i suppose, at least more understadable than JS funcn syntax
-source_ips <- generate_ipv4(num_records)
+source_ips <- generate_ipv4(num_records)#this is the ip generation like callling the funcn
 destination_ips <- generate_ipv4(num_records)
 
-bytes_transferred <- sample(100:10000, num_records, replace=TRUE)
+bytes_transferred <- sample(100:10000, num_records, replace=TRUE)#this is the bytes transferred generation, we use sample for random generation
 
 traffic_data <- data.frame(
     timestamp = timestamps,
@@ -50,7 +50,8 @@ print(p1)
 
 #now something called top talkers analysis, basically which ip address generates most traffic
 
-top_talkers <- aggregate(bytes_transferred ~ source_ip, data = traffic_data, FUN = sum) #dk what this fun is, and why ~ is used plus there is an aggregate function 
+top_talkers <- aggregate(bytes_transferred ~ source_ip, data = traffic_data, FUN = sum) #aggreate groups and summarizes data, ~ is the formula notation in R, in this it means bytes_transferred grouped by source_ip, data= traffic_data tells R to look at these columns FUN stands for function
+
 top_talkers <- top_talkers[order(top_talkers$bytes_transferred, decreasing = TRUE), ] #and this is decreasing sure, but what top_taler$bytes_transferred
 top_talkers <- head(top_talkers, 10) #these are the top 10 talkers for visualization
 
