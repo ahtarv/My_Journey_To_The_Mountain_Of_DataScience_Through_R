@@ -63,3 +63,5 @@ sales_data <- do.call(
     lapply(dates, generate_daily_sales)
 )
 print(head(sales_data))
+
+write.csv(sales_data, "data/sales_data.csv", row.names = FALSE)
