@@ -41,5 +41,17 @@ legend("topleft", legend = c("Seasonal ARIMA Forecast", "Naive Forecast"), col =
 
 dev.off()
 
+# also save as PNG for README
+png("outputs/figures/revenue_forecast.png", width = 900, height = 600)
+plot(
+    arima_forecast,
+    main = "6-Month Revenue Forecast (Seasonal ARIMA)",
+    xlab = "Time",
+    ylab = "Revenue"
+)
+lines(naive_model$mean, col = "red", lty = 2)
+legend("topleft", legend = c("Seasonal ARIMA Forecast", "Naive Forecast"), col = c("blue", "red"), lty = c(1, 2), bty = "n")
+dev.off()
+
 checkresiduals(arima_model)
 print(revenue_ts)

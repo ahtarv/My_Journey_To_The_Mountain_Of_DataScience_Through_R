@@ -14,6 +14,6 @@ monthly_revenue <- sales_data %>%
 revenue_ts <- ts(monthly_revenue$total_revenue, start = c(year(min(monthly_revenue$month)), month(min(monthly_revenue$month))), frequency = 12) # also this, no idea
 
 decomp <- decompose(revenue_ts, type = "additive") # ngl no idea what this mean, i understood decomopistion a little bit, and additive as in small amts is added but nah
-pdf("outputs/figures/decomposition.pdf", width = 8, height = 6)
+png("outputs/figures/decomposition.png", width = 800, height = 600)
 plot(decomp)
 dev.off()
