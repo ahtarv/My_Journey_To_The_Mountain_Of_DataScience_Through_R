@@ -1,0 +1,18 @@
+so first we are not generating rows we are generating events in time.
+
+User
+1.Sgins up
+2.Views Products
+3.Adds to Cart
+4.Purchases(sometimes)
+5.is influenced by promotions
+
+everything else comes later
+so the assumptions are as follows:
+5,000 customers
+sign up spread over two years
+segments: 
+    new (60%)
+    returning(25%)
+    Loyal(15$)
+    
